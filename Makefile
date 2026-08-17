@@ -1,7 +1,6 @@
 PYTHON ?= python3
 DATA_DIR := data
 TXT := $(DATA_DIR)/training_calendar.txt
-CSV := $(DATA_DIR)/training_calendar.csv
 SQL := training_calendar.sql
 
 .PHONY: all run clean
@@ -14,11 +13,8 @@ $(DATA_DIR):
 $(TXT): | $(DATA_DIR)
 	shortcuts run "Training Calendar" --output-path "$(TXT)"
 
-$(CSV): $(TXT)
-	$(PYTHON) convert_txt_to_csv.py --input "$(TXT)" --output "$(CSV)"
-
-run: $(CSV) $(SQL)
-	filename="$(CURDIR)/$(CSV)" duckdb -f "$(SQL)"
+run: $(TXT) $(SQL)
+	$(PYTHON) convert_txt_to_csv.py --input "$(TXT)" | duckdb -f "$(SQL)"
 
 clean:
 	rm -rf "$(DATA_DIR)"

@@ -2,12 +2,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-This tool extracts training log entries from a macOS Calendar and aggregates them into per-sport, per-discipline statistics.
+This tool extracts training log entries from a Calendar in Apple's Calendar app and aggregates them into per-sport, per-discipline statistics.
 
 The pipeline has three steps:
 1. Apple Shortcuts reads training log entries from a calendar and writes them to a TXT file
-2. Python converts the TXT file to a CSV file
-3. DuckDB aggregates the CSV into summary statistics
+2. Python parses the TXT file and converts it to CSV text
+3. DuckDB aggregates the training data from the CSV text into summary statistics
 
 ## Requirements
 
@@ -52,7 +52,7 @@ Sport and discipline are single words. Distance is optional and has at most one 
 2026-01-05 Swimming SCM 5.6km
 ```
 
-3. Converted CSV file (data/training_calendar.csv)
+3. Converted CSV text
 
 ```text
 date,sport,discipline,distance
